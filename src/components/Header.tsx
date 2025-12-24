@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, User, Search, Ship } from "lucide-react";
+import { Menu, User, Search, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -21,10 +21,17 @@ export function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <Ship className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold text-foreground">
-              OTA<span className="text-primary">Ship</span>
-            </span>
+            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+              <Truck className="h-6 w-6 text-primary-foreground" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-lg font-bold text-foreground leading-tight">
+                Sam Transe
+              </span>
+              <span className="text-xs text-primary font-medium -mt-1">
+                LOGISTICS
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -76,9 +83,16 @@ export function Header() {
                     {link.name}
                   </a>
                 ))}
-                <Button variant="default" className="mt-4 bg-primary hover:bg-primary/90">
-                  Get Quote
-                </Button>
+                <Link to="/auth" onClick={() => setIsOpen(false)}>
+                  <Button variant="outline" className="w-full">
+                    Admin Login
+                  </Button>
+                </Link>
+                <a href="#quote" onClick={() => setIsOpen(false)}>
+                  <Button variant="default" className="w-full bg-primary hover:bg-primary/90">
+                    Get Quote
+                  </Button>
+                </a>
               </div>
             </SheetContent>
           </Sheet>
