@@ -4,21 +4,22 @@ import {
   Boxes, Car, Anchor, Ship
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import warehouseImage from "@/assets/warehouse.jpg";
 
 const services = [
-  { icon: FileCheck, name: "Custom Brokerage", description: "Expert customs clearance services" },
-  { icon: Package, name: "Consolidation", description: "Efficient cargo consolidation" },
-  { icon: PackageOpen, name: "Deconsolidation", description: "Careful cargo breakdown" },
-  { icon: Truck, name: "Inland Transport", description: "Nationwide ground shipping" },
-  { icon: Warehouse, name: "Warehousing", description: "Secure storage solutions" },
-  { icon: BarChart3, name: "Supply Chain", description: "End-to-end management" },
-  { icon: Globe, name: "Afghan Transit", description: "Cross-border trade services" },
-  { icon: Search, name: "Inspection", description: "Quality verification" },
-  { icon: Boxes, name: "Project Handling", description: "Large-scale logistics" },
-  { icon: Car, name: "Car Import", description: "Japan/UK vehicle imports" },
-  { icon: Anchor, name: "Vessel Chartering", description: "Ship rental services" },
-  { icon: Ship, name: "Freight Forwarding", description: "Global cargo movement" },
+  { icon: FileCheck, name: "Custom Brokerage", description: "Expert customs clearance services", path: "/services/custom-brokerage" },
+  { icon: Package, name: "Consolidation", description: "Efficient cargo consolidation", path: "/services/consolidation" },
+  { icon: PackageOpen, name: "Deconsolidation", description: "Careful cargo breakdown", path: "/services/deconsolidation" },
+  { icon: Truck, name: "Inland Transport", description: "Nationwide ground shipping", path: "/services/inland-transport" },
+  { icon: Warehouse, name: "Warehousing", description: "Secure storage solutions", path: "/services/warehousing" },
+  { icon: BarChart3, name: "Supply Chain", description: "End-to-end management", path: "/services/supply-chain" },
+  { icon: Globe, name: "Afghan Transit", description: "Cross-border trade services", path: "/services/afghan-transit" },
+  { icon: Search, name: "Inspection", description: "Quality verification", path: "/services/inspection" },
+  { icon: Boxes, name: "Project Handling", description: "Large-scale logistics", path: "/services/project-handling" },
+  { icon: Car, name: "Car Import", description: "Japan/UK vehicle imports", path: "/services/car-import" },
+  { icon: Anchor, name: "Vessel Chartering", description: "Ship rental services", path: "/services/vessel-chartering" },
+  { icon: Ship, name: "Freight Forwarding", description: "Global cargo movement", path: "/services/freight-forwarding" },
 ];
 
 export function Services() {
@@ -55,25 +56,26 @@ export function Services() {
             </h2>
             
             <div className="grid sm:grid-cols-2 gap-4">
-              {services.map((service, index) => (
-                <Card 
-                  key={service.name}
-                  className="group cursor-pointer hover:border-primary/50 transition-all duration-300 bg-card hover:shadow-lg"
-                >
-                  <CardContent className="p-4 flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <service.icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {service.name}
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        {service.description}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
+              {services.map((service) => (
+                <Link key={service.name} to={service.path}>
+                  <Card 
+                    className="group cursor-pointer hover:border-primary/50 transition-all duration-300 bg-card hover:shadow-lg h-full"
+                  >
+                    <CardContent className="p-4 flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                        <service.icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                          {service.name}
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          {service.description}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           </div>
