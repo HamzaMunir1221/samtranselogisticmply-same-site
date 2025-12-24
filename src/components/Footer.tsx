@@ -1,4 +1,4 @@
-import { Ship, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Truck, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const quickLinks = [
@@ -25,14 +25,21 @@ export function Footer() {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2 mb-6">
-              <Ship className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold text-foreground">
-                OTA<span className="text-primary">Ship</span>
-              </span>
+              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                <Truck className="h-6 w-6 text-primary-foreground" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-lg font-bold text-foreground leading-tight">
+                  Sam Transe
+                </span>
+                <span className="text-xs text-primary font-medium -mt-1">
+                  LOGISTICS
+                </span>
+              </div>
             </Link>
             <p className="text-muted-foreground mb-6">
-              We Have 45+ Years Of Business Experience. Pakistan's leading forwarding 
-              and clearing agents since 1976.
+              Your trusted partner for comprehensive logistics and freight forwarding 
+              solutions. Delivering excellence across the globe.
             </p>
             <div className="flex gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors">
@@ -102,19 +109,15 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <Mail className="h-5 w-5 text-primary mt-1" />
                 <div>
-                  <a href="mailto:enquiry@otaship.com" className="text-muted-foreground hover:text-primary transition-colors block">
-                    enquiry@otaship.com
-                  </a>
-                  <a href="mailto:admin@otaship.com" className="text-muted-foreground hover:text-primary transition-colors block">
-                    admin@otaship.com
+                  <a href="mailto:info@samtranselogistics.com" className="text-muted-foreground hover:text-primary transition-colors block">
+                    info@samtranselogistics.com
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
                 <span className="text-muted-foreground">
-                  Suite# 1201-1203, 12th Floor, QM House, Elander Road, 
-                  Opp. Shaheen Complex, Karachi – Pakistan
+                  Karachi, Pakistan
                 </span>
               </li>
             </ul>
@@ -127,7 +130,7 @@ export function Footer() {
         <div className="container mx-auto px-4 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-muted-foreground text-sm text-center md:text-left">
-              © {new Date().getFullYear()} OTA Group. All rights reserved.
+              © {new Date().getFullYear()} Sam Transe Logistics. All rights reserved.
             </p>
             <div className="flex gap-6">
               <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
