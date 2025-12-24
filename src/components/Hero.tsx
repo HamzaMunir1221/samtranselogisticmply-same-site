@@ -48,7 +48,7 @@ export function Hero() {
   }, [isAnimating]);
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 6000);
+    const interval = setInterval(nextSlide, 3000);
     return () => clearInterval(interval);
   }, [nextSlide]);
 
