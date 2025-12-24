@@ -1,0 +1,85 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X, User, Search, Ship } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+
+const navLinks = [
+  { name: "About Us", href: "#about" },
+  { name: "Services", href: "#services" },
+  { name: "Why Choose Us", href: "#why-us" },
+  { name: "Container Tracking", href: "#tracking" },
+  { name: "Contact", href: "#contact" },
+];
+
+export function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
+      <div className="container mx-auto px-4 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2">
+            <Ship className="h-8 w-8 text-primary" />
+            <span className="text-xl font-bold text-foreground">
+              OTA<span className="text-primary">Ship</span>
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {link.name}
+              </a>
+            ))}
+          </nav>
+
+          {/* Desktop Actions */}
+          <div className="hidden lg:flex items-center gap-4">
+            <Button variant="ghost" size="icon">
+              <Search className="h-5 w-5" />
+            </Button>
+            <Button variant="ghost" size="icon">
+              <User className="h-5 w-5" />
+            </Button>
+            <Button variant="default" className="bg-primary hover:bg-primary/90">
+              Get Quote
+            </Button>
+          </div>
+
+          {/* Mobile Menu */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild className="lg:hidden">
+              <Button variant="ghost" size="icon">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-80 bg-background">
+              <div className="flex flex-col gap-6 mt-8">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="text-lg font-medium text-foreground hover:text-primary transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                ))}
+                <Button variant="default" className="mt-4 bg-primary hover:bg-primary/90">
+                  Get Quote
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
+  );
+}
