@@ -3,24 +3,90 @@ import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+
+const services = [
+  "Custom Brokerage",
+  "Consolidation",
+  "Deconsolidation",
+  "Inland Transport",
+  "Warehousing",
+  "Supply Chain",
+  "Afghan Transit",
+  "Inspection",
+  "Project Handling",
+  "Car Import",
+  "Vessel Chartering",
+  "Freight Forwarding",
+];
 
 export function QuoteForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    phone: "",
+    email: "",
+    company: "",
+    serviceType: "",
+    origin: "",
+    destination: "",
+    message: "",
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      const { error } = await supabase.from("quote_submissions").insert({
+        full_name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone || null,
+        company: formData.company || null,
+        service_type: formData.serviceType,
+        origin: formData.origin || null,
+        destination: formData.destination || null,
+        message: formData.message || null,
+      });
+
+      if (error) throw error;
+
       toast({
         title: "Inquiry Sent!",
         description: "We'll get back to you within 24 hours.",
       });
-    }, 1500);
+
+      // Reset form
+      setFormData({
+        fullName: "",
+        phone: "",
+        email: "",
+        company: "",
+        serviceType: "",
+        origin: "",
+        destination: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Error submitting quote:", error);
+      toast({
+        title: "Error",
+        description: "Failed to submit your inquiry. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -77,37 +143,77 @@ export function QuoteForm() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid sm:grid-cols-2 gap-4">
                 <Input
+                  name="fullName"
                   placeholder="Your Name"
+                  value={formData.fullName}
+                  onChange={handleChange}
                   required
                   className="bg-background"
                 />
                 <Input
+                  name="phone"
                   type="tel"
                   placeholder="Your Number"
-                  required
+                  value={formData.phone}
+                  onChange={handleChange}
                   className="bg-background"
                 />
               </div>
-              <Input
-                type="email"
-                placeholder="Email Address"
-                required
-                className="bg-background"
-              />
               <div className="grid sm:grid-cols-2 gap-4">
                 <Input
-                  placeholder="From City"
+                  name="email"
+                  type="email"
+                  placeholder="Email Address"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                   className="bg-background"
                 />
                 <Input
+                  name="company"
+                  placeholder="Company Name"
+                  value={formData.company}
+                  onChange={handleChange}
+                  className="bg-background"
+                />
+              </div>
+              <Select 
+                value={formData.serviceType} 
+                onValueChange={(value) => setFormData(prev => ({ ...prev, serviceType: value }))}
+                required
+              >
+                <SelectTrigger className="bg-background">
+                  <SelectValue placeholder="Select Service" />
+                </SelectTrigger>
+                <SelectContent>
+                  {services.map((service) => (
+                    <SelectItem key={service} value={service}>
+                      {service}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <Input
+                  name="origin"
+                  placeholder="From City"
+                  value={formData.origin}
+                  onChange={handleChange}
+                  className="bg-background"
+                />
+                <Input
+                  name="destination"
                   placeholder="To City"
-                  required
+                  value={formData.destination}
+                  onChange={handleChange}
                   className="bg-background"
                 />
               </div>
               <Textarea
-                placeholder="Subject / Additional Details"
+                name="message"
+                placeholder="Additional Details / Cargo Description"
+                value={formData.message}
+                onChange={handleChange}
                 rows={4}
                 className="bg-background resize-none"
               />
