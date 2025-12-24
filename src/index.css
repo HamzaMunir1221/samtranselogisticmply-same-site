@@ -24,8 +24,8 @@
     --muted: 220 15% 92%;
     --muted-foreground: 220 10% 45%;
 
-    --accent: 35 100% 50%;
-    --accent-foreground: 220 30% 10%;
+    --accent: 16 85% 60%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -46,7 +46,7 @@
     --sidebar-ring: 199 89% 55%;
 
     --chart-1: 199 89% 55%;
-    --chart-2: 35 100% 50%;
+    --chart-2: 16 85% 60%;
     --chart-3: 160 60% 45%;
     --chart-4: 280 60% 55%;
     --chart-5: 340 70% 55%;
@@ -71,8 +71,8 @@
     --muted: 220 25% 18%;
     --muted-foreground: 220 10% 60%;
 
-    --accent: 35 100% 55%;
-    --accent-foreground: 220 25% 8%;
+    --accent: 16 85% 65%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
@@ -91,7 +91,7 @@
     --sidebar-ring: 199 89% 55%;
 
     --chart-1: 199 89% 55%;
-    --chart-2: 35 100% 55%;
+    --chart-2: 16 85% 65%;
     --chart-3: 160 60% 50%;
     --chart-4: 280 60% 60%;
     --chart-5: 340 70% 60%;
@@ -135,7 +135,7 @@
   }
 
   .glow-accent {
-    box-shadow: 0 0 40px hsl(35 100% 55% / 0.3);
+    box-shadow: 0 0 40px hsl(16 85% 60% / 0.3);
   }
 }
 
