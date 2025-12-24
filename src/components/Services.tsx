@@ -33,6 +33,7 @@ export function Services() {
               src={warehouseImage}
               alt="Modern logistics warehouse"
               className="w-full h-[500px] object-cover"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
             <div className="absolute bottom-8 left-8 right-8">

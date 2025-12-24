@@ -56,6 +56,7 @@ export function Stats() {
           src={globalNetwork}
           alt="Global shipping network"
           className="w-full h-full object-cover opacity-20"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background" />
       </div>

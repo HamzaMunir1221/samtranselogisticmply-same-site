@@ -66,6 +66,8 @@ export function Hero() {
             src={slide.image}
             alt={slide.title}
             className="w-full h-full object-cover"
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : "auto"}
           />
           <div className="absolute inset-0 hero-gradient" />
         </div>
