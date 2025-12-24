@@ -45,12 +45,16 @@ export function Header() {
             <Button variant="ghost" size="icon">
               <Search className="h-5 w-5" />
             </Button>
-            <Button variant="ghost" size="icon">
-              <User className="h-5 w-5" />
-            </Button>
-            <Button variant="default" className="bg-primary hover:bg-primary/90">
-              Get Quote
-            </Button>
+            <Link to="/auth">
+              <Button variant="ghost" size="icon">
+                <User className="h-5 w-5" />
+              </Button>
+            </Link>
+            <a href="#quote">
+              <Button variant="default" className="bg-primary hover:bg-primary/90">
+                Get Quote
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu */}

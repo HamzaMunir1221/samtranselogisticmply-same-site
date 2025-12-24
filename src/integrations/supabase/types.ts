@@ -24,9 +24,11 @@ export type Database = {
           full_name: string
           id: string
           message: string | null
+          notes: string | null
           origin: string | null
           phone: string | null
           service_type: string
+          status: string | null
         }
         Insert: {
           cargo_details?: string | null
@@ -37,9 +39,11 @@ export type Database = {
           full_name: string
           id?: string
           message?: string | null
+          notes?: string | null
           origin?: string | null
           phone?: string | null
           service_type: string
+          status?: string | null
         }
         Update: {
           cargo_details?: string | null
@@ -50,9 +54,11 @@ export type Database = {
           full_name?: string
           id?: string
           message?: string | null
+          notes?: string | null
           origin?: string | null
           phone?: string | null
           service_type?: string
+          status?: string | null
         }
         Relationships: []
       }
