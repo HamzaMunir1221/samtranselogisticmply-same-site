@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Ship, LogOut, Loader2, RefreshCw, Trash2, Eye } from "lucide-react";
+import { Ship, LogOut, Loader2, RefreshCw, Trash2, Eye, ShieldX } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -28,7 +28,7 @@ interface QuoteSubmission {
 }
 
 export default function Admin() {
-  const { user, loading, signOut } = useAuth();
+  const { user, loading, isAdmin, roleLoading, signOut } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [submissions, setSubmissions] = useState<QuoteSubmission[]>([]);
@@ -42,10 +42,12 @@ export default function Admin() {
   }, [user, loading, navigate]);
 
   useEffect(() => {
-    if (user) {
+    if (user && isAdmin && !roleLoading) {
       fetchSubmissions();
+    } else if (!roleLoading && !isAdmin && user) {
+      setLoadingData(false);
     }
-  }, [user]);
+  }, [user, isAdmin, roleLoading]);
 
   const fetchSubmissions = async () => {
     setLoadingData(true);
@@ -145,10 +147,35 @@ export default function Admin() {
     }
   };
 
-  if (loading) {
+  if (loading || roleLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  // Access denied for non-admins
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Card className="max-w-md w-full mx-4">
+          <CardContent className="pt-6 text-center">
+            <ShieldX className="h-16 w-16 text-destructive mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-foreground mb-2">Access Denied</h2>
+            <p className="text-muted-foreground mb-6">
+              You don't have permission to access the admin dashboard. Please contact an administrator if you believe this is an error.
+            </p>
+            <div className="flex gap-2 justify-center">
+              <Button variant="outline" onClick={() => navigate("/")}>
+                Go Home
+              </Button>
+              <Button variant="outline" onClick={handleSignOut}>
+                Sign Out
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     );
   }
