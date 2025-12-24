@@ -39,14 +39,14 @@ export function WhyChooseUs() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="text-center mb-16">
           <p className="text-primary font-medium tracking-wider uppercase mb-4">
-            Why Choose OTA Group
+            Why Choose Sam Transe
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
             We Have <span className="text-gradient">45+ Years</span> Of<br />
             Business Experience
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            OTA Group besides locally does frequent consolidation & deconsolidation 
+            Sam Transe Logistics besides locally does frequent consolidation & deconsolidation 
             overseas, focusing & specializing in Europe, USA/Canada, and Far East Asia.
           </p>
         </div>

@@ -70,7 +70,7 @@ export function Stats() {
             <span className="text-gradient">Forwarding & Clearing Agents</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            OTA Group has been committed to providing exceptional, reliable & innovative 
+            Sam Transe Logistics has been committed to providing exceptional, reliable & innovative 
             solutions in moving by Land, by Air, and by Ship.
           </p>
         </div>

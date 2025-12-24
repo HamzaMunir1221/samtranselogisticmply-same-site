@@ -37,11 +37,11 @@ export function Services() {
             <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
             <div className="absolute bottom-8 left-8 right-8">
               <h3 className="text-2xl font-bold text-foreground mb-2">
-                Full-Service Transit Agency
+                Full-Service Logistics
               </h3>
               <p className="text-muted-foreground">
-                Overseas Transit Agency is a Full-Service Transit Agency (Pvt) Ltd 
-                providing a vast range of Transit services.
+                Sam Transe Logistics is a Full-Service Logistics Company 
+                providing a vast range of freight and transit services.
               </p>
             </div>
           </div>
