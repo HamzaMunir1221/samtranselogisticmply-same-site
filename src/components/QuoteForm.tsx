@@ -48,6 +48,7 @@ export function QuoteForm() {
     setIsLoading(true);
     
     try {
+      // Save to database
       const { error } = await supabase.from("quote_submissions").insert({
         full_name: formData.fullName,
         email: formData.email,
@@ -60,6 +61,13 @@ export function QuoteForm() {
       });
 
       if (error) throw error;
+
+      // Send email notification (don't block on failure)
+      supabase.functions.invoke("send-quote-notification", {
+        body: formData,
+      }).catch((emailError) => {
+        console.error("Email notification failed:", emailError);
+      });
 
       toast({
         title: "Inquiry Sent!",
