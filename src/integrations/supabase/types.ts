@@ -23,12 +23,14 @@ export type Database = {
           email: string
           full_name: string
           id: string
+          ip_hash: string | null
           message: string | null
           notes: string | null
           origin: string | null
           phone: string | null
           service_type: string
           status: string | null
+          submitted_at: string | null
         }
         Insert: {
           cargo_details?: string | null
@@ -38,12 +40,14 @@ export type Database = {
           email: string
           full_name: string
           id?: string
+          ip_hash?: string | null
           message?: string | null
           notes?: string | null
           origin?: string | null
           phone?: string | null
           service_type: string
           status?: string | null
+          submitted_at?: string | null
         }
         Update: {
           cargo_details?: string | null
@@ -53,12 +57,14 @@ export type Database = {
           email?: string
           full_name?: string
           id?: string
+          ip_hash?: string | null
           message?: string | null
           notes?: string | null
           origin?: string | null
           phone?: string | null
           service_type?: string
           status?: string | null
+          submitted_at?: string | null
         }
         Relationships: []
       }
@@ -88,6 +94,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_quote_rate_limit: {
+        Args: { submitter_email: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
