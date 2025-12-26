@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,6 +25,7 @@ const services = [
 export function QuoteForm() {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [formLoadTime, setFormLoadTime] = useState(0);
   const [formData, setFormData] = useState({
     fullName: "",
     phone: "",
@@ -34,7 +35,13 @@ export function QuoteForm() {
     origin: "",
     destination: "",
     message: "",
+    honeypot: "", // Hidden field to catch bots
   });
+
+  // Record when the form was loaded (for timing-based bot detection)
+  useEffect(() => {
+    setFormLoadTime(Date.now());
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
@@ -59,19 +66,19 @@ export function QuoteForm() {
     setIsLoading(true);
     
     try {
-      // Save to database
-      const { error } = await supabase.from("quote_submissions").insert({
-        full_name: formData.fullName,
-        email: formData.email,
-        phone: formData.phone || null,
-        company: formData.company || null,
-        service_type: formData.serviceType,
-        origin: formData.origin || null,
-        destination: formData.destination || null,
-        message: formData.message || null,
+      // Submit through edge function for server-side validation
+      const { data, error } = await supabase.functions.invoke("submit-quote", {
+        body: {
+          ...formData,
+          timestamp: formLoadTime,
+        },
       });
 
       if (error) throw error;
+
+      if (data?.error) {
+        throw new Error(data.error);
+      }
 
       // Send email notification (don't block on failure)
       supabase.functions.invoke("send-quote-notification", {
@@ -95,12 +102,16 @@ export function QuoteForm() {
         origin: "",
         destination: "",
         message: "",
+        honeypot: "",
       });
+      
+      // Reset form load time
+      setFormLoadTime(Date.now());
     } catch (error) {
       console.error("Error submitting quote:", error);
       toast({
         title: "Error",
-        description: "Failed to submit your inquiry. Please try again.",
+        description: error instanceof Error ? error.message : "Failed to submit your inquiry. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -160,6 +171,17 @@ export function QuoteForm() {
           {/* Quote Form */}
           <div className="bg-card rounded-2xl p-8 shadow-lg border border-border">
             <form onSubmit={handleSubmit} className="space-y-5">
+              {/* Honeypot field - hidden from users, visible to bots */}
+              <div className="absolute left-[-9999px]" aria-hidden="true">
+                <Input
+                  name="honeypot"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formData.honeypot}
+                  onChange={handleChange}
+                />
+              </div>
+
               <div className="grid sm:grid-cols-2 gap-4">
                 <Input
                   name="fullName"
