@@ -8,9 +8,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Ship, LogOut, Loader2, RefreshCw, Trash2, Eye, ShieldX } from "lucide-react";
+import { Ship, LogOut, RefreshCw, Trash2, Eye, ShieldX } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { StatCardSkeleton, QuoteTableSkeleton, PageSkeleton } from "@/components/LoadingSkeletons";
 
 interface QuoteSubmission {
   id: string;
@@ -148,11 +149,7 @@ export default function Admin() {
   };
 
   if (loading || roleLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    );
+    return <PageSkeleton />;
   }
 
   // Access denied for non-admins
@@ -207,46 +204,54 @@ export default function Admin() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
-        <div className="grid gap-6 md:grid-cols-4 mb-8">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Total Quotes</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold text-foreground">{submissions.length}</p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Pending</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold text-yellow-500">
-                {submissions.filter(s => s.status === "pending" || !s.status).length}
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Quoted</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold text-purple-500">
-                {submissions.filter(s => s.status === "quoted").length}
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Confirmed</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-3xl font-bold text-green-500">
-                {submissions.filter(s => s.status === "confirmed").length}
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+        {loadingData ? (
+          <div className="grid gap-6 md:grid-cols-4 mb-8">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <StatCardSkeleton key={i} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-4 mb-8">
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">Total Quotes</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-bold text-foreground">{submissions.length}</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">Pending</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-bold text-yellow-500">
+                  {submissions.filter(s => s.status === "pending" || !s.status).length}
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">Quoted</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-bold text-purple-500">
+                  {submissions.filter(s => s.status === "quoted").length}
+                </p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">Confirmed</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-3xl font-bold text-green-500">
+                  {submissions.filter(s => s.status === "confirmed").length}
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        )}
 
         {/* Submissions Table */}
         <Card>
@@ -255,9 +260,22 @@ export default function Admin() {
           </CardHeader>
           <CardContent>
             {loadingData ? (
-              <div className="flex justify-center py-8">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              </div>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Email</TableHead>
+                    <TableHead>Service</TableHead>
+                    <TableHead>Route</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  <QuoteTableSkeleton rows={5} />
+                </TableBody>
+              </Table>
             ) : submissions.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
                 No quote submissions yet.
