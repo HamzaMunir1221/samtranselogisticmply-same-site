@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { ArrowRight, Briefcase, Ship, Award, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FloatingShapes } from "./FloatingShapes";
 import heroSlide1 from "@/assets/hero-slide-1.webp";
 import heroSlide2 from "@/assets/hero-slide-2.webp";
 import heroSlide3 from "@/assets/hero-slide-3.webp";
@@ -73,9 +72,6 @@ export function Hero() {
           <div className="absolute inset-0 hero-gradient" />
         </div>
       ))}
-
-      {/* 3D Floating Shapes */}
-      <FloatingShapes />
 
       {/* Slider Navigation Arrows */}
       <button
