@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_access_logs: {
+        Row: {
+          accessed_at: string
+          action: string
+          admin_user_id: string
+          details: Json | null
+          id: string
+          ip_address: string | null
+          record_id: string | null
+          table_name: string
+        }
+        Insert: {
+          accessed_at?: string
+          action: string
+          admin_user_id: string
+          details?: Json | null
+          id?: string
+          ip_address?: string | null
+          record_id?: string | null
+          table_name: string
+        }
+        Update: {
+          accessed_at?: string
+          action?: string
+          admin_user_id?: string
+          details?: Json | null
+          id?: string
+          ip_address?: string | null
+          record_id?: string | null
+          table_name?: string
+        }
+        Relationships: []
+      }
       quote_submissions: {
         Row: {
           cargo_details: string | null
@@ -101,6 +134,15 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      log_admin_access: {
+        Args: {
+          p_action: string
+          p_details?: Json
+          p_record_id?: string
+          p_table_name: string
+        }
+        Returns: undefined
       }
     }
     Enums: {
