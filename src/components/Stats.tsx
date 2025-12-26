@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { ParallaxSection } from "./ParallaxSection";
+import { ScrollAnimate } from "@/hooks/use-scroll-animation";
 import globalNetwork from "@/assets/global-network.jpg";
 
 const stats = [
@@ -59,7 +60,7 @@ export function Stats() {
     >
       <section id="about">
         <div className="container mx-auto px-4 lg:px-8">
-          <div className="text-center mb-16">
+          <ScrollAnimate animation="fade-up" className="text-center mb-16">
             <p className="text-primary font-medium tracking-wider uppercase mb-4">
               Since 1976
             </p>
@@ -71,18 +72,20 @@ export function Stats() {
               Sam Transe Logistics has been committed to providing exceptional, reliable & innovative 
               solutions in moving by Land, by Air, and by Ship.
             </p>
-          </div>
+          </ScrollAnimate>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div 
+              <ScrollAnimate 
                 key={stat.label}
-                className="text-center p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-colors"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                animation="zoom-in"
+                delay={index * 100}
               >
-                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                <p className="text-muted-foreground mt-2">{stat.label}</p>
-              </div>
+                <div className="text-center p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-colors">
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                  <p className="text-muted-foreground mt-2">{stat.label}</p>
+                </div>
+              </ScrollAnimate>
             ))}
           </div>
         </div>
