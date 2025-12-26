@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MessageCircle, X, Send, Loader2, Bot, User, FileText, MapPin, Phone, HelpCircle } from "lucide-react";
+import { MessageCircle, X, Send, Loader2, Bot, User, FileText, MapPin, Phone, HelpCircle, Volume2, VolumeX } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Message = {
@@ -145,6 +145,7 @@ const Chatbot = () => {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
+  const [isSoundEnabled, setIsSoundEnabled] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -183,7 +184,7 @@ const Chatbot = () => {
       onDelta: updateAssistant,
       onDone: () => {
         setIsLoading(false);
-        playNotificationSound();
+        if (isSoundEnabled) playNotificationSound();
       },
       onError: (error) => {
         setIsLoading(false);
@@ -193,7 +194,7 @@ const Chatbot = () => {
         ]);
       },
     });
-  }, [input, isLoading, messages]);
+  }, [input, isLoading, messages, isSoundEnabled]);
 
   const handleQuickReply = (reply: QuickReply) => {
     sendMessage(reply.message);
@@ -234,10 +235,21 @@ const Chatbot = () => {
           <div className="bg-primary-foreground/20 p-2 rounded-full">
             <Bot className="h-5 w-5" />
           </div>
-          <div>
+          <div className="flex-1">
             <h3 className="font-semibold text-sm">Customer Support</h3>
             <p className="text-xs opacity-80">We typically reply instantly</p>
           </div>
+          <button
+            onClick={() => setIsSoundEnabled(!isSoundEnabled)}
+            className="p-2 rounded-full hover:bg-primary-foreground/20 transition-colors"
+            title={isSoundEnabled ? "Mute notifications" : "Unmute notifications"}
+          >
+            {isSoundEnabled ? (
+              <Volume2 className="h-4 w-4" />
+            ) : (
+              <VolumeX className="h-4 w-4 opacity-60" />
+            )}
+          </button>
         </div>
 
         {/* Messages */}
