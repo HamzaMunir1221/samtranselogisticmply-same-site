@@ -1,13 +1,26 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MessageCircle, X, Send, Loader2, Bot, User } from "lucide-react";
+import { MessageCircle, X, Send, Loader2, Bot, User, FileText, MapPin, Phone, HelpCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Message = {
   role: "user" | "assistant";
   content: string;
 };
+
+type QuickReply = {
+  label: string;
+  message: string;
+  icon: React.ElementType;
+};
+
+const quickReplies: QuickReply[] = [
+  { label: "Get a Quote", message: "I'd like to get a quote for shipping services.", icon: FileText },
+  { label: "Track Shipment", message: "I want to track my shipment.", icon: MapPin },
+  { label: "Contact Sales", message: "I'd like to speak with your sales team.", icon: Phone },
+  { label: "Our Services", message: "What services do you offer?", icon: HelpCircle },
+];
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 
@@ -108,6 +121,7 @@ const Chatbot = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showQuickReplies, setShowQuickReplies] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -118,13 +132,15 @@ const Chatbot = () => {
     scrollToBottom();
   }, [messages]);
 
-  const sendMessage = useCallback(async () => {
-    if (!input.trim() || isLoading) return;
+  const sendMessage = useCallback(async (messageText?: string) => {
+    const text = messageText || input.trim();
+    if (!text || isLoading) return;
 
-    const userMessage: Message = { role: "user", content: input.trim() };
+    const userMessage: Message = { role: "user", content: text };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
+    setShowQuickReplies(false);
 
     let assistantContent = "";
 
@@ -152,6 +168,10 @@ const Chatbot = () => {
       },
     });
   }, [input, isLoading, messages]);
+
+  const handleQuickReply = (reply: QuickReply) => {
+    sendMessage(reply.message);
+  };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -236,6 +256,23 @@ const Chatbot = () => {
               </div>
             </div>
           )}
+          
+          {/* Quick Replies */}
+          {showQuickReplies && messages.length === 1 && !isLoading && (
+            <div className="flex flex-wrap gap-2 mt-2">
+              {quickReplies.map((reply) => (
+                <button
+                  key={reply.label}
+                  onClick={() => handleQuickReply(reply)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-full border border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/50 transition-colors"
+                >
+                  <reply.icon className="h-3 w-3" />
+                  {reply.label}
+                </button>
+              ))}
+            </div>
+          )}
+          
           <div ref={messagesEndRef} />
         </div>
 
@@ -250,7 +287,7 @@ const Chatbot = () => {
             disabled={isLoading}
           />
           <Button
-            onClick={sendMessage}
+            onClick={() => sendMessage()}
             size="icon"
             disabled={!input.trim() || isLoading}
             className="shrink-0"
