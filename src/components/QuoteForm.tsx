@@ -45,6 +45,17 @@ export function QuoteForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate service type since Select doesn't support native required
+    if (!formData.serviceType) {
+      toast({
+        title: "Service Required",
+        description: "Please select a service type.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsLoading(true);
     
     try {
