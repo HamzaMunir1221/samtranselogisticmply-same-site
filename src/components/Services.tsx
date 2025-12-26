@@ -6,7 +6,6 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { ParallaxSection } from "./ParallaxSection";
-import { ScrollAnimate } from "@/hooks/use-scroll-animation";
 import warehouseImage from "@/assets/warehouse.jpg";
 
 const services = [
@@ -30,64 +29,54 @@ export function Services() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left Image with Parallax */}
-          <ScrollAnimate animation="fade-right">
-            <ParallaxSection
-              backgroundImage={warehouseImage}
-              speed={0.15}
-              overlay={true}
-              overlayOpacity={0.4}
-              className="rounded-2xl h-[500px]"
-            >
-              <div className="absolute bottom-8 left-8 right-8 z-20">
-                <h3 className="text-2xl font-bold text-foreground mb-2">
-                  Full-Service Logistics
-                </h3>
-                <p className="text-muted-foreground">
-                  Sam Transe Logistics is a Full-Service Logistics Company 
-                  providing a vast range of freight and transit services.
-                </p>
-              </div>
-            </ParallaxSection>
-          </ScrollAnimate>
+          <ParallaxSection
+            backgroundImage={warehouseImage}
+            speed={0.15}
+            overlay={true}
+            overlayOpacity={0.4}
+            className="rounded-2xl h-[500px]"
+          >
+            <div className="absolute bottom-8 left-8 right-8 z-20">
+              <h3 className="text-2xl font-bold text-foreground mb-2">
+                Full-Service Logistics
+              </h3>
+              <p className="text-muted-foreground">
+                Sam Transe Logistics is a Full-Service Logistics Company 
+                providing a vast range of freight and transit services.
+              </p>
+            </div>
+          </ParallaxSection>
 
           {/* Right Services Grid */}
           <div>
-            <ScrollAnimate animation="fade-up">
-              <p className="text-primary font-medium tracking-wider uppercase mb-4">
-                What We Offer
-              </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
-                Our <span className="text-gradient">Services</span>
-              </h2>
-            </ScrollAnimate>
+            <p className="text-primary font-medium tracking-wider uppercase mb-4">
+              What We Offer
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
+              Our <span className="text-gradient">Services</span>
+            </h2>
             
             <div className="grid sm:grid-cols-2 gap-4">
-              {services.map((service, index) => (
-                <ScrollAnimate 
-                  key={service.name}
-                  animation="fade-up"
-                  delay={index * 50}
-                >
-                  <Link to={service.path}>
-                    <Card 
-                      className="group cursor-pointer hover:border-primary/50 transition-all duration-300 bg-card hover:shadow-lg h-full hover:-translate-y-1"
-                    >
-                      <CardContent className="p-4 flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors group-hover:scale-110">
-                          <service.icon className="h-6 w-6 text-primary" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                            {service.name}
-                          </h4>
-                          <p className="text-sm text-muted-foreground">
-                            {service.description}
-                          </p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                </ScrollAnimate>
+              {services.map((service) => (
+                <Link key={service.name} to={service.path}>
+                  <Card 
+                    className="group cursor-pointer hover:border-primary/50 transition-all duration-300 bg-card hover:shadow-lg h-full hover:-translate-y-1"
+                  >
+                    <CardContent className="p-4 flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors group-hover:scale-110">
+                        <service.icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                          {service.name}
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          {service.description}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
               ))}
             </div>
           </div>
