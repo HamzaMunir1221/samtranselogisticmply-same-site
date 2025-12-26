@@ -50,6 +50,15 @@ export default function Admin() {
     }
   }, [user, isAdmin, roleLoading]);
 
+  const logAdminAccess = async (action: string, recordId?: string, details?: object) => {
+    await supabase.rpc('log_admin_access', {
+      p_action: action,
+      p_table_name: 'quote_submissions',
+      p_record_id: recordId || null,
+      p_details: details ? JSON.stringify(details) : null,
+    });
+  };
+
   const fetchSubmissions = async () => {
     setLoadingData(true);
     const { data, error } = await supabase
@@ -65,6 +74,8 @@ export default function Admin() {
       });
     } else {
       setSubmissions(data || []);
+      // Log access to sensitive customer data
+      await logAdminAccess('view_all', undefined, { count: data?.length || 0 });
     }
     setLoadingData(false);
   };
@@ -82,6 +93,7 @@ export default function Admin() {
         variant: "destructive",
       });
     } else {
+      await logAdminAccess('update_status', id, { new_status: status });
       setSubmissions(submissions.map(s => s.id === id ? { ...s, status } : s));
       toast({
         title: "Updated",
@@ -103,6 +115,7 @@ export default function Admin() {
         variant: "destructive",
       });
     } else {
+      await logAdminAccess('update_notes', id);
       setSubmissions(submissions.map(s => s.id === id ? { ...s, notes } : s));
       toast({
         title: "Updated",
@@ -112,6 +125,7 @@ export default function Admin() {
   };
 
   const deleteSubmission = async (id: string) => {
+    await logAdminAccess('delete', id);
     const { error } = await supabase
       .from("quote_submissions")
       .delete()
@@ -334,7 +348,10 @@ export default function Admin() {
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  onClick={() => setSelectedSubmission(submission)}
+                                  onClick={() => {
+                                    setSelectedSubmission(submission);
+                                    logAdminAccess('view_details', submission.id);
+                                  }}
                                 >
                                   <Eye className="h-4 w-4" />
                                 </Button>
