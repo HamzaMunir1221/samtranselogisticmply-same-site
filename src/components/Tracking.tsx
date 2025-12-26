@@ -3,7 +3,6 @@ import { Search, Container, MapPin, Clock, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { ScrollAnimate } from "@/hooks/use-scroll-animation";
 
 export function Tracking() {
   const { toast } = useToast();
@@ -43,7 +42,7 @@ export function Tracking() {
     <section id="tracking" className="py-20 bg-card">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <ScrollAnimate animation="fade-up" className="text-center mb-12">
+          <div className="text-center mb-12">
             <p className="text-primary font-medium tracking-wider uppercase mb-4">
               Track Your Shipment
             </p>
@@ -53,72 +52,66 @@ export function Tracking() {
             <p className="text-muted-foreground text-lg">
               Enter your container or tracking number to get real-time updates on your shipment.
             </p>
-          </ScrollAnimate>
+          </div>
 
-          <ScrollAnimate animation="fade-up" delay={200}>
-            <form onSubmit={handleTrack} className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto mb-12">
-              <div className="relative flex-1">
-                <Container className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                <Input
-                  value={trackingNumber}
-                  onChange={(e) => setTrackingNumber(e.target.value)}
-                  placeholder="Enter Container/Tracking Number"
-                  className="pl-12 h-14 bg-background text-lg"
-                />
-              </div>
-              <Button 
-                type="submit" 
-                size="lg"
-                className="h-14 px-8 bg-primary hover:bg-primary/90 gap-2"
-                disabled={isLoading}
-              >
-                {isLoading ? "Tracking..." : "Track Now"}
-                <Search className="h-5 w-5" />
-              </Button>
-            </form>
-          </ScrollAnimate>
+          <form onSubmit={handleTrack} className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto mb-12">
+            <div className="relative flex-1">
+              <Container className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <Input
+                value={trackingNumber}
+                onChange={(e) => setTrackingNumber(e.target.value)}
+                placeholder="Enter Container/Tracking Number"
+                className="pl-12 h-14 bg-background text-lg"
+              />
+            </div>
+            <Button 
+              type="submit" 
+              size="lg"
+              className="h-14 px-8 bg-primary hover:bg-primary/90 gap-2"
+              disabled={isLoading}
+            >
+              {isLoading ? "Tracking..." : "Track Now"}
+              <Search className="h-5 w-5" />
+            </Button>
+          </form>
 
           {/* Tracking Timeline Example */}
-          <ScrollAnimate animation="fade-up" delay={300}>
-            <div className="bg-background rounded-2xl p-8 border border-border">
-              <h3 className="text-lg font-semibold text-foreground mb-6">
-                Example Tracking Timeline
-              </h3>
-              <div className="space-y-6">
-                {trackingSteps.map((step, index) => (
-                  <ScrollAnimate key={index} animation="fade-left" delay={index * 100}>
-                    <div className="flex gap-4">
-                      <div className="flex flex-col items-center">
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                          step.complete ? 'bg-primary' : 'bg-muted'
-                        }`}>
-                          {step.complete ? (
-                            <CheckCircle className="h-5 w-5 text-primary-foreground" />
-                          ) : (
-                            <Clock className="h-5 w-5 text-muted-foreground" />
-                          )}
-                        </div>
-                        {index < 4 && (
-                          <div className={`w-0.5 h-16 ${step.complete ? 'bg-primary' : 'bg-muted'}`} />
-                        )}
-                      </div>
-                      <div className="flex-1 pb-4">
-                        <h4 className="font-semibold text-foreground">{step.status}</h4>
-                        <div className="flex items-center gap-2 text-muted-foreground text-sm mt-1">
-                          <MapPin className="h-4 w-4" />
-                          <span>{step.location}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-muted-foreground text-sm mt-1">
-                          <Clock className="h-4 w-4" />
-                          <span>{step.time}</span>
-                        </div>
-                      </div>
+          <div className="bg-background rounded-2xl p-8 border border-border">
+            <h3 className="text-lg font-semibold text-foreground mb-6">
+              Example Tracking Timeline
+            </h3>
+            <div className="space-y-6">
+              {trackingSteps.map((step, index) => (
+                <div key={index} className="flex gap-4">
+                  <div className="flex flex-col items-center">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                      step.complete ? 'bg-primary' : 'bg-muted'
+                    }`}>
+                      {step.complete ? (
+                        <CheckCircle className="h-5 w-5 text-primary-foreground" />
+                      ) : (
+                        <Clock className="h-5 w-5 text-muted-foreground" />
+                      )}
                     </div>
-                  </ScrollAnimate>
-                ))}
-              </div>
+                    {index < 4 && (
+                      <div className={`w-0.5 h-16 ${step.complete ? 'bg-primary' : 'bg-muted'}`} />
+                    )}
+                  </div>
+                  <div className="flex-1 pb-4">
+                    <h4 className="font-semibold text-foreground">{step.status}</h4>
+                    <div className="flex items-center gap-2 text-muted-foreground text-sm mt-1">
+                      <MapPin className="h-4 w-4" />
+                      <span>{step.location}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-muted-foreground text-sm mt-1">
+                      <Clock className="h-4 w-4" />
+                      <span>{step.time}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          </ScrollAnimate>
+          </div>
         </div>
       </div>
     </section>
