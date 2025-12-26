@@ -156,6 +156,26 @@
     animation: pulse 4s ease-in-out infinite;
   }
 
+  .animate-float-3d {
+    animation: float3d 20s ease-in-out infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin3d 20s linear infinite;
+  }
+
+  .animate-spin-reverse {
+    animation: spinReverse 25s linear infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 4s ease-in-out infinite;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -180,5 +200,49 @@
   @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.6; }
+  }
+
+  @keyframes float3d {
+    0%, 100% { 
+      transform: translateY(0) translateX(0) rotateY(0deg);
+    }
+    25% { 
+      transform: translateY(-20px) translateX(10px) rotateY(90deg);
+    }
+    50% { 
+      transform: translateY(-10px) translateX(-10px) rotateY(180deg);
+    }
+    75% { 
+      transform: translateY(-25px) translateX(5px) rotateY(270deg);
+    }
+  }
+
+  @keyframes spin3d {
+    from { 
+      transform: rotateX(0deg) rotateY(0deg);
+    }
+    to { 
+      transform: rotateX(360deg) rotateY(360deg);
+    }
+  }
+
+  @keyframes spinReverse {
+    from { 
+      transform: rotate(0deg);
+    }
+    to { 
+      transform: rotate(-360deg);
+    }
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { 
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    50% { 
+      opacity: 1;
+      transform: scale(1.05);
+    }
   }
 }
