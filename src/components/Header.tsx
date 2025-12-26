@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu, User, Search, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { name: "About Us", href: "#about" },
@@ -48,10 +49,11 @@ export function Header() {
           </nav>
 
           {/* Desktop Actions */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-2">
             <Button variant="ghost" size="icon">
               <Search className="h-5 w-5" />
             </Button>
+            <ThemeToggle />
             <Link to="/auth">
               <Button variant="ghost" size="icon">
                 <User className="h-5 w-5" />
@@ -83,6 +85,10 @@ export function Header() {
                     {link.name}
                   </a>
                 ))}
+                <div className="flex items-center justify-between pt-4 border-t border-border">
+                  <span className="text-sm text-muted-foreground">Theme</span>
+                  <ThemeToggle />
+                </div>
                 <Link to="/auth" onClick={() => setIsOpen(false)}>
                   <Button variant="outline" className="w-full">
                     Admin Login
