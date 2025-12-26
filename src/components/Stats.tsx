@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { ParallaxSection } from "./ParallaxSection";
 import globalNetwork from "@/assets/global-network.jpg";
 
 const stats = [
@@ -49,46 +50,43 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 
 export function Stats() {
   return (
-    <section id="about" className="py-20 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <img
-          src={globalNetwork}
-          alt="Global shipping network"
-          className="w-full h-full object-cover opacity-20"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background" />
-      </div>
+    <ParallaxSection
+      backgroundImage={globalNetwork}
+      speed={0.2}
+      overlay={true}
+      overlayOpacity={0.85}
+      className="py-20"
+    >
+      <section id="about">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="text-center mb-16">
+            <p className="text-primary font-medium tracking-wider uppercase mb-4">
+              Since 1976
+            </p>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+              Pakistan's Leading<br />
+              <span className="text-gradient">Forwarding & Clearing Agents</span>
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+              Sam Transe Logistics has been committed to providing exceptional, reliable & innovative 
+              solutions in moving by Land, by Air, and by Ship.
+            </p>
+          </div>
 
-      <div className="relative z-10 container mx-auto px-4 lg:px-8">
-        <div className="text-center mb-16">
-          <p className="text-primary font-medium tracking-wider uppercase mb-4">
-            Since 1976
-          </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Pakistan's Leading<br />
-            <span className="text-gradient">Forwarding & Clearing Agents</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            Sam Transe Logistics has been committed to providing exceptional, reliable & innovative 
-            solutions in moving by Land, by Air, and by Ship.
-          </p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div 
+                key={stat.label}
+                className="text-center p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-colors"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                <p className="text-muted-foreground mt-2">{stat.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <div 
-              key={stat.label}
-              className="text-center p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-colors"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-              <p className="text-muted-foreground mt-2">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
+    </ParallaxSection>
   );
 }

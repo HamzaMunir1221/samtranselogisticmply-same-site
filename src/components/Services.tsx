@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
+import { ParallaxSection } from "./ParallaxSection";
 import warehouseImage from "@/assets/warehouse.jpg";
 
 const services = [
@@ -27,16 +28,15 @@ export function Services() {
     <section id="services" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left Image */}
-          <div className="relative rounded-2xl overflow-hidden">
-            <img
-              src={warehouseImage}
-              alt="Modern logistics warehouse"
-              className="w-full h-[500px] object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-            <div className="absolute bottom-8 left-8 right-8">
+          {/* Left Image with Parallax */}
+          <ParallaxSection
+            backgroundImage={warehouseImage}
+            speed={0.15}
+            overlay={true}
+            overlayOpacity={0.4}
+            className="rounded-2xl h-[500px]"
+          >
+            <div className="absolute bottom-8 left-8 right-8 z-20">
               <h3 className="text-2xl font-bold text-foreground mb-2">
                 Full-Service Logistics
               </h3>
@@ -45,7 +45,7 @@ export function Services() {
                 providing a vast range of freight and transit services.
               </p>
             </div>
-          </div>
+          </ParallaxSection>
 
           {/* Right Services Grid */}
           <div>
@@ -60,10 +60,10 @@ export function Services() {
               {services.map((service) => (
                 <Link key={service.name} to={service.path}>
                   <Card 
-                    className="group cursor-pointer hover:border-primary/50 transition-all duration-300 bg-card hover:shadow-lg h-full"
+                    className="group cursor-pointer hover:border-primary/50 transition-all duration-300 bg-card hover:shadow-lg h-full hover:-translate-y-1"
                   >
                     <CardContent className="p-4 flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors group-hover:scale-110">
                         <service.icon className="h-6 w-6 text-primary" />
                       </div>
                       <div>
