@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "./pages/Index";
+import Chatbot from "@/components/Chatbot";
 
 // Lazy load non-critical routes for code splitting
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -57,6 +58,7 @@ const App = () => (
               </Routes>
             </Suspense>
           </BrowserRouter>
+          <Chatbot />
         </TooltipProvider>
       </AuthProvider>
     </ThemeProvider>
