@@ -6,7 +6,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { ParallaxSection } from "./ParallaxSection";
-import warehouseImage from "@/assets/warehouse.jpg";
+import servicesImage from "@/assets/services-warehouse.jpg";
 
 const services = [
   { icon: FileCheck, name: "Custom Brokerage", description: "Expert customs clearance services", path: "/services/custom-brokerage" },
@@ -30,7 +30,7 @@ export function Services() {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left Image with Parallax */}
           <ParallaxSection
-            backgroundImage={warehouseImage}
+            backgroundImage={servicesImage}
             speed={0.15}
             overlay={true}
             overlayOpacity={0.4}
