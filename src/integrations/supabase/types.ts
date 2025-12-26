@@ -23,7 +23,6 @@ export type Database = {
           email: string
           full_name: string
           id: string
-          ip_hash: string | null
           message: string | null
           notes: string | null
           origin: string | null
@@ -40,7 +39,6 @@ export type Database = {
           email: string
           full_name: string
           id?: string
-          ip_hash?: string | null
           message?: string | null
           notes?: string | null
           origin?: string | null
@@ -57,7 +55,6 @@ export type Database = {
           email?: string
           full_name?: string
           id?: string
-          ip_hash?: string | null
           message?: string | null
           notes?: string | null
           origin?: string | null
