@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, User, Search, Truck } from "lucide-react";
+import { Menu, User, Search, Ship } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ThemeToggle } from "./ThemeToggle";
@@ -23,8 +23,9 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-lg font-bold text-primary-foreground">STL</span>
+              <Ship className="h-5 w-5 text-primary-foreground" />
             </div>
+            <span className="text-lg font-bold text-foreground">STL</span>
           </Link>
 
           {/* Desktop Navigation */}
