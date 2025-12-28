@@ -1,4 +1,4 @@
-import { Truck, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Ship, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const quickLinks = [
@@ -24,9 +24,10 @@ export function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
-            <Link to="/" className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-lg font-bold text-primary-foreground">STL</span>
+            <Link to="/" className="flex items-center mb-6">
+              <div className="relative">
+                <span className="text-2xl font-black text-primary-foreground tracking-tight">STL</span>
+                <Ship className="h-3 w-3 text-primary-foreground absolute -top-1 -right-3" />
               </div>
             </Link>
             <p className="text-muted-foreground mb-6">
