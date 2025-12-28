@@ -53,8 +53,8 @@ Sam Transe Logistics is a trusted partner for comprehensive logistics and freigh
 12. **Vessel Chartering** - Ship rental services for bulk cargo
 
 ## Contact Information
-- Phone: +92-21-32603690 or +92-21-32603696
-- Email: info@samtranselogistics.com
+- Phone: 0318-4833990
+- Email: samtranselogistics@gmail.com
 - Location: Karachi, Pakistan
 
 ## Your Behavior Guidelines
