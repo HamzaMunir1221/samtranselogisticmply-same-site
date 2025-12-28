@@ -7,7 +7,6 @@ import { WhyChooseUs } from "@/components/WhyChooseUs";
 import { Testimonials } from "@/components/Testimonials";
 import { TrustedClients } from "@/components/TrustedClients";
 import { FAQ } from "@/components/FAQ";
-import { Tracking } from "@/components/Tracking";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
@@ -23,8 +22,6 @@ const Index = () => {
         <Testimonials />
         <TrustedClients />
         <FAQ />
-        <Tracking />
-        <Tracking />
       </main>
       <Footer />
     </div>
