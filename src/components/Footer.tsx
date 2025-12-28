@@ -98,19 +98,16 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <Phone className="h-5 w-5 text-primary mt-1" />
                 <div>
-                  <a href="tel:+922132603690" className="text-muted-foreground hover:text-primary transition-colors block">
-                    +92-21-32603690
-                  </a>
-                  <a href="tel:+922132603696" className="text-muted-foreground hover:text-primary transition-colors block">
-                    +92-21-32603696
+                  <a href="tel:+923184833990" className="text-muted-foreground hover:text-primary transition-colors block">
+                    0318-4833990
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="h-5 w-5 text-primary mt-1" />
                 <div>
-                  <a href="mailto:info@samtranselogistics.com" className="text-muted-foreground hover:text-primary transition-colors block">
-                    info@samtranselogistics.com
+                  <a href="mailto:samtranselogistics@gmail.com" className="text-muted-foreground hover:text-primary transition-colors block">
+                    samtranselogistics@gmail.com
                   </a>
                 </div>
               </li>
