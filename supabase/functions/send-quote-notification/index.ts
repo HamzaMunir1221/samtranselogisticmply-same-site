@@ -146,11 +146,18 @@ const handler = async (req: Request): Promise<Response> => {
               </tr>` : ''}
             </table>
             
-            <p style="margin-top: 24px;">If you have any urgent questions, feel free to contact us directly.</p>
+            <p style="margin-top: 24px;">If you have any urgent questions, feel free to contact us directly:</p>
+            
+            <div style="background-color: #f3f4f6; padding: 16px; border-radius: 8px; margin-top: 16px;">
+              <p style="margin: 0 0 8px 0;"><strong>📞 Phone:</strong> <a href="tel:+923184833990" style="color: #2563eb;">0318-4833990</a></p>
+              <p style="margin: 0 0 8px 0;"><strong>📧 Email:</strong> <a href="mailto:samtranselogistics@gmail.com" style="color: #2563eb;">samtranselogistics@gmail.com</a></p>
+              <p style="margin: 0;"><strong>💬 WhatsApp:</strong> <a href="https://wa.me/923184833990" style="color: #25D366;">Chat with us</a></p>
+            </div>
             
             <p style="color: #6b7280; margin-top: 32px; font-size: 14px;">
               Best regards,<br>
-              <strong>Sam Transe Logistics Team</strong>
+              <strong>Sam Transe Logistics Team</strong><br>
+              Karachi, Pakistan
             </p>
           </div>
         `,
