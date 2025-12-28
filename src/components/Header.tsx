@@ -21,11 +21,11 @@ export function Header() {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-              <Ship className="h-5 w-5 text-primary-foreground" />
+          <Link to="/" className="flex items-center">
+            <div className="relative">
+              <span className="text-2xl font-black text-primary tracking-tight">STL</span>
+              <Ship className="h-3 w-3 text-primary absolute -top-1 -right-3" />
             </div>
-            <span className="text-lg font-bold text-foreground">STL</span>
           </Link>
 
           {/* Desktop Navigation */}
