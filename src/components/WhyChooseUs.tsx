@@ -8,7 +8,7 @@ const features = [
   },
   {
     icon: Clock,
-    title: "45+ Years Experience",
+    title: "5+ Years Experience",
     description: "Decades of expertise in freight forwarding, customs clearance, and logistics solutions."
   },
   {
@@ -42,7 +42,7 @@ export function WhyChooseUs() {
             Why Choose Sam Transe
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            We Have <span className="text-gradient">45+ Years</span> Of<br />
+            We Have <span className="text-gradient">5+ Years</span> Of<br />
             Business Experience
           </h2>
           <p className="text-muted-foreground text-lg max-w-3xl mx-auto">

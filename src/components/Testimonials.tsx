@@ -49,7 +49,7 @@ const testimonials = [
     name: "David Thompson",
     company: "UK Exports Co.",
     rating: 5,
-    review: "Professional, efficient, and reliable. Sam Transe made our first export to Pakistan incredibly smooth. Their 45+ years of experience really shows in their service quality.",
+    review: "Professional, efficient, and reliable. Sam Transe made our first export to Pakistan incredibly smooth. Their 5+ years of experience really shows in their service quality.",
     initials: "DT",
   },
 ];

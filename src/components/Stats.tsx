@@ -3,8 +3,8 @@ import { ParallaxSection } from "./ParallaxSection";
 import globalNetwork from "@/assets/global-network.jpg";
 
 const stats = [
-  { label: "Business Years", value: 45, suffix: "+" },
-  { label: "Years of Professionalism", value: 45, suffix: "+" },
+  { label: "Business Years", value: 5, suffix: "+" },
+  { label: "Years of Professionalism", value: 5, suffix: "+" },
   { label: "Overseas Routes", value: 120, suffix: "+" },
   { label: "Happy Clients", value: 5000, suffix: "+" },
 ];
@@ -61,7 +61,7 @@ export function Stats() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="text-center mb-16">
             <p className="text-primary font-medium tracking-wider uppercase mb-4">
-              Since 1976
+              Since 2020
             </p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
               Pakistan's Leading<br />
