@@ -80,6 +80,13 @@ export function Hero() {
                   : "opacity-0 translate-y-8 absolute inset-0 pointer-events-none"
               }`}
             >
+              {/* STL Brand Name */}
+              <div className="mb-4">
+                <span className="text-5xl md:text-6xl lg:text-7xl font-black text-primary tracking-tight">
+                  STL
+                </span>
+              </div>
+              
               {/* Subtitle badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-6">
                 <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
