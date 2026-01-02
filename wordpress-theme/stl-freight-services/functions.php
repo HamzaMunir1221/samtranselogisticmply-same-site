@@ -1,7 +1,7 @@
 <?php
 /**
  * STL Freight Services Theme Functions
- * Matching React App Design
+ * Matching React App Design - Complete Version
  */
 
 // Theme Setup
@@ -25,8 +25,8 @@ add_action('after_setup_theme', 'stl_theme_setup');
 
 // Enqueue scripts and styles
 function stl_enqueue_scripts() {
-    wp_enqueue_style('stl-style', get_stylesheet_uri(), array(), '2.0.0');
-    wp_enqueue_script('stl-main', get_template_directory_uri() . '/assets/js/main.js', array(), '2.0.0', true);
+    wp_enqueue_style('stl-style', get_stylesheet_uri(), array(), '2.1.0');
+    wp_enqueue_script('stl-main', get_template_directory_uri() . '/assets/js/main.js', array(), '2.1.0', true);
 }
 add_action('wp_enqueue_scripts', 'stl_enqueue_scripts');
 
@@ -39,19 +39,26 @@ function stl_customize_register($wp_customize) {
     // HERO SECTION - With Image Uploads
     // ========================================
     $wp_customize->add_section('stl_hero_section', array(
-        'title'    => __('Hero Section', 'stl-freight-services'),
-        'priority' => 30,
+        'title'       => __('Hero Section', 'stl-freight-services'),
+        'description' => __('Configure the hero banner slides with background images and content.', 'stl-freight-services'),
+        'priority'    => 30,
     ));
+
+    // Default images from theme
+    $default_slide_1 = get_template_directory_uri() . '/assets/images/hero-slide-1.jpg';
+    $default_slide_2 = get_template_directory_uri() . '/assets/images/hero-slide-2.jpg';
+    $default_slide_3 = get_template_directory_uri() . '/assets/images/hero-slide-3.jpg';
 
     // Hero Slide 1
     $wp_customize->add_setting('stl_hero_slide_1_image', array(
-        'default'           => '',
+        'default'           => $default_slide_1,
         'sanitize_callback' => 'esc_url_raw',
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'stl_hero_slide_1_image', array(
-        'label'    => __('Slide 1 Background Image', 'stl-freight-services'),
-        'section'  => 'stl_hero_section',
-        'settings' => 'stl_hero_slide_1_image',
+        'label'       => __('Slide 1 Background Image', 'stl-freight-services'),
+        'description' => __('Recommended size: 1920x1080px. Use images with STL branded vehicles for best results.', 'stl-freight-services'),
+        'section'     => 'stl_hero_section',
+        'settings'    => 'stl_hero_slide_1_image',
     )));
 
     $wp_customize->add_setting('stl_hero_slide_1_subtitle', array(
@@ -96,13 +103,14 @@ function stl_customize_register($wp_customize) {
 
     // Hero Slide 2
     $wp_customize->add_setting('stl_hero_slide_2_image', array(
-        'default'           => '',
+        'default'           => $default_slide_2,
         'sanitize_callback' => 'esc_url_raw',
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'stl_hero_slide_2_image', array(
-        'label'    => __('Slide 2 Background Image', 'stl-freight-services'),
-        'section'  => 'stl_hero_section',
-        'settings' => 'stl_hero_slide_2_image',
+        'label'       => __('Slide 2 Background Image', 'stl-freight-services'),
+        'description' => __('Recommended size: 1920x1080px.', 'stl-freight-services'),
+        'section'     => 'stl_hero_section',
+        'settings'    => 'stl_hero_slide_2_image',
     )));
 
     $wp_customize->add_setting('stl_hero_slide_2_subtitle', array(
@@ -147,13 +155,14 @@ function stl_customize_register($wp_customize) {
 
     // Hero Slide 3
     $wp_customize->add_setting('stl_hero_slide_3_image', array(
-        'default'           => '',
+        'default'           => $default_slide_3,
         'sanitize_callback' => 'esc_url_raw',
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'stl_hero_slide_3_image', array(
-        'label'    => __('Slide 3 Background Image', 'stl-freight-services'),
-        'section'  => 'stl_hero_section',
-        'settings' => 'stl_hero_slide_3_image',
+        'label'       => __('Slide 3 Background Image', 'stl-freight-services'),
+        'description' => __('Recommended size: 1920x1080px.', 'stl-freight-services'),
+        'section'     => 'stl_hero_section',
+        'settings'    => 'stl_hero_slide_3_image',
     )));
 
     $wp_customize->add_setting('stl_hero_slide_3_subtitle', array(
@@ -200,8 +209,9 @@ function stl_customize_register($wp_customize) {
     // STATS SECTION - With Background Image
     // ========================================
     $wp_customize->add_section('stl_stats_section', array(
-        'title'    => __('Stats Section', 'stl-freight-services'),
-        'priority' => 35,
+        'title'       => __('Stats Section', 'stl-freight-services'),
+        'description' => __('Configure the company statistics section.', 'stl-freight-services'),
+        'priority'    => 35,
     ));
 
     $wp_customize->add_setting('stl_stats_bg_image', array(
@@ -209,9 +219,10 @@ function stl_customize_register($wp_customize) {
         'sanitize_callback' => 'esc_url_raw',
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'stl_stats_bg_image', array(
-        'label'    => __('Stats Background Image', 'stl-freight-services'),
-        'section'  => 'stl_stats_section',
-        'settings' => 'stl_stats_bg_image',
+        'label'       => __('Stats Background Image', 'stl-freight-services'),
+        'description' => __('Optional parallax background image for the stats section.', 'stl-freight-services'),
+        'section'     => 'stl_stats_section',
+        'settings'    => 'stl_stats_bg_image',
     )));
 
     $wp_customize->add_setting('stl_stats_eyebrow', array(
@@ -285,11 +296,71 @@ function stl_customize_register($wp_customize) {
     }
 
     // ========================================
+    // WHY CHOOSE US SECTION
+    // ========================================
+    $wp_customize->add_section('stl_why_choose_section', array(
+        'title'       => __('Why Choose Us Section', 'stl-freight-services'),
+        'description' => __('Configure the features and benefits section.', 'stl-freight-services'),
+        'priority'    => 37,
+    ));
+
+    $wp_customize->add_setting('stl_why_choose_eyebrow', array(
+        'default'           => 'Why Choose Sam Transe',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('stl_why_choose_eyebrow', array(
+        'label'   => __('Eyebrow Text', 'stl-freight-services'),
+        'section' => 'stl_why_choose_section',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('stl_why_choose_title', array(
+        'default'           => 'We Have',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('stl_why_choose_title', array(
+        'label'   => __('Title', 'stl-freight-services'),
+        'section' => 'stl_why_choose_section',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('stl_why_choose_highlight', array(
+        'default'           => '5+ Years',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('stl_why_choose_highlight', array(
+        'label'   => __('Highlight Text', 'stl-freight-services'),
+        'section' => 'stl_why_choose_section',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('stl_why_choose_subtitle', array(
+        'default'           => 'Of Business Experience',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('stl_why_choose_subtitle', array(
+        'label'   => __('Subtitle', 'stl-freight-services'),
+        'section' => 'stl_why_choose_section',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('stl_why_choose_description', array(
+        'default'           => 'Sam Transe Logistics besides locally does frequent consolidation & deconsolidation overseas, focusing & specializing in Europe, USA/Canada, and Far East Asia.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    $wp_customize->add_control('stl_why_choose_description', array(
+        'label'   => __('Description', 'stl-freight-services'),
+        'section' => 'stl_why_choose_section',
+        'type'    => 'textarea',
+    ));
+
+    // ========================================
     // SERVICES SECTION - With Image Upload
     // ========================================
     $wp_customize->add_section('stl_services_section', array(
-        'title'    => __('Services Section', 'stl-freight-services'),
-        'priority' => 40,
+        'title'       => __('Services Section', 'stl-freight-services'),
+        'description' => __('Configure the services showcase section.', 'stl-freight-services'),
+        'priority'    => 40,
     ));
 
     $wp_customize->add_setting('stl_services_image', array(
@@ -297,9 +368,10 @@ function stl_customize_register($wp_customize) {
         'sanitize_callback' => 'esc_url_raw',
     ));
     $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'stl_services_image', array(
-        'label'    => __('Services Side Image', 'stl-freight-services'),
-        'section'  => 'stl_services_section',
-        'settings' => 'stl_services_image',
+        'label'       => __('Services Side Image', 'stl-freight-services'),
+        'description' => __('Image displayed alongside the services grid.', 'stl-freight-services'),
+        'section'     => 'stl_services_section',
+        'settings'    => 'stl_services_image',
     )));
 
     $wp_customize->add_setting('stl_services_image_title', array(
@@ -326,8 +398,9 @@ function stl_customize_register($wp_customize) {
     // TESTIMONIALS SECTION
     // ========================================
     $wp_customize->add_section('stl_testimonials_section', array(
-        'title'    => __('Testimonials Section', 'stl-freight-services'),
-        'priority' => 45,
+        'title'       => __('Testimonials Section', 'stl-freight-services'),
+        'description' => __('Configure client testimonials.', 'stl-freight-services'),
+        'priority'    => 45,
     ));
 
     $testimonial_defaults = array(
@@ -383,11 +456,72 @@ function stl_customize_register($wp_customize) {
     }
 
     // ========================================
+    // QUOTE FORM SECTION
+    // ========================================
+    $wp_customize->add_section('stl_quote_section', array(
+        'title'       => __('Quote Form Section', 'stl-freight-services'),
+        'description' => __('Configure the quote request form section.', 'stl-freight-services'),
+        'priority'    => 47,
+    ));
+
+    $wp_customize->add_setting('stl_quote_eyebrow', array(
+        'default'           => "Let's Do Business",
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('stl_quote_eyebrow', array(
+        'label'   => __('Quote Section Eyebrow', 'stl-freight-services'),
+        'section' => 'stl_quote_section',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('stl_quote_title', array(
+        'default'           => 'Get a Free',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('stl_quote_title', array(
+        'label'   => __('Quote Section Title', 'stl-freight-services'),
+        'section' => 'stl_quote_section',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('stl_quote_highlight', array(
+        'default'           => 'Quotation',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control('stl_quote_highlight', array(
+        'label'   => __('Quote Section Highlight', 'stl-freight-services'),
+        'section' => 'stl_quote_section',
+        'type'    => 'text',
+    ));
+
+    $wp_customize->add_setting('stl_quote_description', array(
+        'default'           => "Tell us about your shipping needs and we'll provide you with a competitive quote. Our team responds within 24 hours.",
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ));
+    $wp_customize->add_control('stl_quote_description', array(
+        'label'   => __('Quote Section Description', 'stl-freight-services'),
+        'section' => 'stl_quote_section',
+        'type'    => 'textarea',
+    ));
+
+    $wp_customize->add_setting('stl_quote_email', array(
+        'default'           => 'samtranselogistics@gmail.com',
+        'sanitize_callback' => 'sanitize_email',
+    ));
+    $wp_customize->add_control('stl_quote_email', array(
+        'label'       => __('Quote Submission Email', 'stl-freight-services'),
+        'description' => __('Email address where quote submissions are sent.', 'stl-freight-services'),
+        'section'     => 'stl_quote_section',
+        'type'        => 'email',
+    ));
+
+    // ========================================
     // CONTACT SECTION
     // ========================================
     $wp_customize->add_section('stl_contact_section', array(
-        'title'    => __('Contact Information', 'stl-freight-services'),
-        'priority' => 50,
+        'title'       => __('Contact Information', 'stl-freight-services'),
+        'description' => __('Configure company contact details displayed in footer and info bar.', 'stl-freight-services'),
+        'priority'    => 50,
     ));
 
     $wp_customize->add_setting('stl_phone', array(
@@ -435,48 +569,74 @@ function stl_customize_register($wp_customize) {
         'sanitize_callback' => 'sanitize_text_field',
     ));
     $wp_customize->add_control('stl_whatsapp', array(
-        'label'       => __('WhatsApp Number (without +)', 'stl-freight-services'),
-        'description' => __('Enter number without + sign, e.g., 923184833990', 'stl-freight-services'),
+        'label'       => __('WhatsApp Number', 'stl-freight-services'),
+        'description' => __('Enter without + or spaces (e.g., 923184833990)', 'stl-freight-services'),
         'section'     => 'stl_contact_section',
         'type'        => 'text',
     ));
 
-    // Social Links
-    $wp_customize->add_setting('stl_facebook', array('default' => '', 'sanitize_callback' => 'esc_url_raw'));
-    $wp_customize->add_control('stl_facebook', array('label' => __('Facebook URL', 'stl-freight-services'), 'section' => 'stl_contact_section', 'type' => 'url'));
+    // Social Media Links
+    $wp_customize->add_setting('stl_facebook', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('stl_facebook', array(
+        'label'   => __('Facebook URL', 'stl-freight-services'),
+        'section' => 'stl_contact_section',
+        'type'    => 'url',
+    ));
 
-    $wp_customize->add_setting('stl_twitter', array('default' => '', 'sanitize_callback' => 'esc_url_raw'));
-    $wp_customize->add_control('stl_twitter', array('label' => __('Twitter URL', 'stl-freight-services'), 'section' => 'stl_contact_section', 'type' => 'url'));
+    $wp_customize->add_setting('stl_twitter', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('stl_twitter', array(
+        'label'   => __('Twitter URL', 'stl-freight-services'),
+        'section' => 'stl_contact_section',
+        'type'    => 'url',
+    ));
 
-    $wp_customize->add_setting('stl_linkedin', array('default' => '', 'sanitize_callback' => 'esc_url_raw'));
-    $wp_customize->add_control('stl_linkedin', array('label' => __('LinkedIn URL', 'stl-freight-services'), 'section' => 'stl_contact_section', 'type' => 'url'));
+    $wp_customize->add_setting('stl_linkedin', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('stl_linkedin', array(
+        'label'   => __('LinkedIn URL', 'stl-freight-services'),
+        'section' => 'stl_contact_section',
+        'type'    => 'url',
+    ));
 
-    $wp_customize->add_setting('stl_instagram', array('default' => '', 'sanitize_callback' => 'esc_url_raw'));
-    $wp_customize->add_control('stl_instagram', array('label' => __('Instagram URL', 'stl-freight-services'), 'section' => 'stl_contact_section', 'type' => 'url'));
+    $wp_customize->add_setting('stl_instagram', array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+    $wp_customize->add_control('stl_instagram', array(
+        'label'   => __('Instagram URL', 'stl-freight-services'),
+        'section' => 'stl_contact_section',
+        'type'    => 'url',
+    ));
 }
 add_action('customize_register', 'stl_customize_register');
 
-// Get testimonials helper function
+// ============================================
+// HELPER FUNCTIONS
+// ============================================
+
+/**
+ * Get testimonials from theme customizer
+ */
 function stl_get_testimonials() {
     $testimonials = array();
     
     for ($i = 1; $i <= 6; $i++) {
         $name = get_theme_mod("stl_testimonial_{$i}_name", '');
-        $text = get_theme_mod("stl_testimonial_{$i}_text", '');
-        
-        if (!empty($name) && !empty($text)) {
-            $initials = '';
-            $name_parts = explode(' ', $name);
-            foreach ($name_parts as $part) {
-                $initials .= strtoupper(substr($part, 0, 1));
-            }
-            
+        if (!empty($name)) {
             $testimonials[] = array(
                 'name'     => $name,
                 'company'  => get_theme_mod("stl_testimonial_{$i}_company", ''),
-                'text'     => $text,
-                'rating'   => intval(get_theme_mod("stl_testimonial_{$i}_rating", 5)),
-                'initials' => substr($initials, 0, 2),
+                'text'     => get_theme_mod("stl_testimonial_{$i}_text", ''),
+                'rating'   => (int) get_theme_mod("stl_testimonial_{$i}_rating", 5),
+                'initials' => stl_get_initials($name),
             );
         }
     }
@@ -484,13 +644,20 @@ function stl_get_testimonials() {
     return $testimonials;
 }
 
-// Get slides helper function
+/**
+ * Get hero slides from theme customizer
+ */
 function stl_get_hero_slides() {
     $slides = array();
+    $default_images = array(
+        1 => get_template_directory_uri() . '/assets/images/hero-slide-1.jpg',
+        2 => get_template_directory_uri() . '/assets/images/hero-slide-2.jpg',
+        3 => get_template_directory_uri() . '/assets/images/hero-slide-3.jpg',
+    );
     
     for ($i = 1; $i <= 3; $i++) {
         $slides[] = array(
-            'image'       => get_theme_mod("stl_hero_slide_{$i}_image", ''),
+            'image'       => get_theme_mod("stl_hero_slide_{$i}_image", $default_images[$i]),
             'subtitle'    => get_theme_mod("stl_hero_slide_{$i}_subtitle", ''),
             'title'       => get_theme_mod("stl_hero_slide_{$i}_title", ''),
             'highlight'   => get_theme_mod("stl_hero_slide_{$i}_highlight", ''),
@@ -500,3 +667,102 @@ function stl_get_hero_slides() {
     
     return $slides;
 }
+
+/**
+ * Get initials from a name
+ */
+function stl_get_initials($name) {
+    $words = explode(' ', trim($name));
+    $initials = '';
+    foreach ($words as $word) {
+        if (!empty($word)) {
+            $initials .= strtoupper($word[0]);
+        }
+    }
+    return substr($initials, 0, 2);
+}
+
+/**
+ * Get Why Choose Us features
+ */
+function stl_get_features() {
+    return array(
+        array(
+            'icon' => 'globe',
+            'title' => 'Global Network',
+            'description' => 'Extensive network spanning Europe, USA/Canada, and Far East Asia for seamless international operations.',
+        ),
+        array(
+            'icon' => 'clock',
+            'title' => '5+ Years Experience',
+            'description' => 'Decades of expertise in freight forwarding, customs clearance, and logistics solutions.',
+        ),
+        array(
+            'icon' => 'shield',
+            'title' => 'Reliable & Secure',
+            'description' => 'Your cargo is protected with our comprehensive insurance and security protocols.',
+        ),
+        array(
+            'icon' => 'headphones',
+            'title' => '24/7 Support',
+            'description' => 'Round-the-clock customer service to track and manage your shipments anytime.',
+        ),
+        array(
+            'icon' => 'trending-up',
+            'title' => 'Competitive Rates',
+            'description' => 'Best-in-class pricing without compromising on service quality or reliability.',
+        ),
+        array(
+            'icon' => 'users',
+            'title' => 'Expert Team',
+            'description' => 'Skilled professionals dedicated to handling your logistics needs efficiently.',
+        ),
+    );
+}
+
+/**
+ * Handle quote form submission
+ */
+function stl_handle_quote_submission() {
+    if (!isset($_POST['stl_quote_nonce']) || !wp_verify_nonce($_POST['stl_quote_nonce'], 'stl_quote_submit')) {
+        wp_die('Security check failed');
+    }
+
+    $to = get_theme_mod('stl_quote_email', 'samtranselogistics@gmail.com');
+    $name = sanitize_text_field($_POST['full_name']);
+    $email = sanitize_email($_POST['email']);
+    $phone = sanitize_text_field($_POST['phone']);
+    $company = sanitize_text_field($_POST['company']);
+    $service = sanitize_text_field($_POST['service_type']);
+    $origin = sanitize_text_field($_POST['origin']);
+    $destination = sanitize_text_field($_POST['destination']);
+    $message = sanitize_textarea_field($_POST['message']);
+
+    $subject = 'New Quote Request from ' . $name;
+    
+    $body = "New Quote Request\n\n";
+    $body .= "Name: {$name}\n";
+    $body .= "Email: {$email}\n";
+    $body .= "Phone: {$phone}\n";
+    $body .= "Company: {$company}\n";
+    $body .= "Service: {$service}\n";
+    $body .= "Origin: {$origin}\n";
+    $body .= "Destination: {$destination}\n";
+    $body .= "Message:\n{$message}\n";
+
+    $headers = array(
+        'Content-Type: text/plain; charset=UTF-8',
+        'Reply-To: ' . $email,
+    );
+
+    $sent = wp_mail($to, $subject, $body, $headers);
+
+    if ($sent) {
+        wp_redirect(add_query_arg('quote', 'success', home_url('/')));
+    } else {
+        wp_redirect(add_query_arg('quote', 'error', home_url('/')));
+    }
+    exit;
+}
+add_action('admin_post_nopriv_stl_quote_submit', 'stl_handle_quote_submission');
+add_action('admin_post_stl_quote_submit', 'stl_handle_quote_submission');
