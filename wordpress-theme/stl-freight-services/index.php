@@ -6,6 +6,7 @@ get_header();
 
 $slides = stl_get_hero_slides();
 $testimonials = stl_get_testimonials();
+$features = stl_get_features();
 ?>
 
 <!-- Hero Section -->
@@ -46,7 +47,7 @@ $testimonials = stl_get_testimonials();
 
                 <!-- CTA Buttons -->
                 <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">
+                    <a href="#quote" class="btn btn-primary">
                         Request a Quote
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </a>
@@ -124,10 +125,37 @@ $testimonials = stl_get_testimonials();
         <div class="stats-grid">
             <?php for ($i = 1; $i <= 4; $i++) : ?>
             <div class="stat-card">
-                <div class="stat-value"><?php echo esc_html(get_theme_mod("stl_stat_{$i}_value", '5+')); ?></div>
+                <div class="stat-value" data-target="<?php echo esc_attr(preg_replace('/[^0-9]/', '', get_theme_mod("stl_stat_{$i}_value", '5+'))); ?>"><?php echo esc_html(get_theme_mod("stl_stat_{$i}_value", '5+')); ?></div>
                 <p class="stat-label"><?php echo esc_html(get_theme_mod("stl_stat_{$i}_label", 'Stat Label')); ?></p>
             </div>
             <?php endfor; ?>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="why-choose-section" id="why-us">
+    <div class="container">
+        <p class="section-eyebrow"><?php echo esc_html(get_theme_mod('stl_why_choose_eyebrow', 'Why Choose Sam Transe')); ?></p>
+        <h2 class="section-title">
+            <?php echo esc_html(get_theme_mod('stl_why_choose_title', 'We Have')); ?> 
+            <span class="text-gradient"><?php echo esc_html(get_theme_mod('stl_why_choose_highlight', '5+ Years')); ?></span>
+            <?php echo esc_html(get_theme_mod('stl_why_choose_subtitle', 'Of Business Experience')); ?>
+        </h2>
+        <p class="section-description">
+            <?php echo esc_html(get_theme_mod('stl_why_choose_description', 'Sam Transe Logistics besides locally does frequent consolidation & deconsolidation overseas, focusing & specializing in Europe, USA/Canada, and Far East Asia.')); ?>
+        </p>
+
+        <div class="features-grid">
+            <?php foreach ($features as $feature) : ?>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <?php echo stl_get_feature_icon($feature['icon']); ?>
+                </div>
+                <h3 class="feature-title"><?php echo esc_html($feature['title']); ?></h3>
+                <p class="feature-description"><?php echo esc_html($feature['description']); ?></p>
+            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
@@ -222,6 +250,98 @@ $testimonials = stl_get_testimonials();
     </div>
 </section>
 
+<!-- Quote Form Section -->
+<section class="quote-section" id="quote">
+    <div class="container">
+        <div class="quote-wrapper">
+            <!-- Left Content -->
+            <div class="quote-content">
+                <p class="section-eyebrow" style="text-align: left;"><?php echo esc_html(get_theme_mod('stl_quote_eyebrow', "Let's Do Business")); ?></p>
+                <h2 class="section-title" style="text-align: left;">
+                    <?php echo esc_html(get_theme_mod('stl_quote_title', 'Get a Free')); ?><br>
+                    <span class="text-gradient"><?php echo esc_html(get_theme_mod('stl_quote_highlight', 'Quotation')); ?></span>
+                </h2>
+                <p class="quote-description">
+                    <?php echo esc_html(get_theme_mod('stl_quote_description', "Tell us about your shipping needs and we'll provide you with a competitive quote. Our team responds within 24 hours.")); ?>
+                </p>
+                
+                <div class="quote-steps">
+                    <div class="quote-step">
+                        <div class="quote-step-number">01</div>
+                        <div>
+                            <h4>Fill the Form</h4>
+                            <p>Provide your shipping details</p>
+                        </div>
+                    </div>
+                    <div class="quote-step">
+                        <div class="quote-step-number">02</div>
+                        <div>
+                            <h4>Get Quote</h4>
+                            <p>Receive competitive pricing</p>
+                        </div>
+                    </div>
+                    <div class="quote-step">
+                        <div class="quote-step-number">03</div>
+                        <div>
+                            <h4>Ship It</h4>
+                            <p>Start your shipment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quote Form -->
+            <div class="quote-form-card">
+                <?php if (isset($_GET['quote']) && $_GET['quote'] === 'success') : ?>
+                <div class="quote-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    <h3>Thank You!</h3>
+                    <p>We'll get back to you within 24 hours.</p>
+                </div>
+                <?php else : ?>
+                <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post" class="quote-form">
+                    <input type="hidden" name="action" value="stl_quote_submit">
+                    <?php wp_nonce_field('stl_quote_submit', 'stl_quote_nonce'); ?>
+                    
+                    <div class="form-row">
+                        <input type="text" name="full_name" placeholder="Your Name" required class="form-input">
+                        <input type="tel" name="phone" placeholder="Your Number" class="form-input">
+                    </div>
+                    <div class="form-row">
+                        <input type="email" name="email" placeholder="Email Address" required class="form-input">
+                        <input type="text" name="company" placeholder="Company Name" class="form-input">
+                    </div>
+                    <select name="service_type" required class="form-select">
+                        <option value="">Select Service</option>
+                        <option value="Custom Brokerage">Custom Brokerage</option>
+                        <option value="Consolidation">Consolidation</option>
+                        <option value="Deconsolidation">Deconsolidation</option>
+                        <option value="Inland Transport">Inland Transport</option>
+                        <option value="Warehousing">Warehousing</option>
+                        <option value="Supply Chain">Supply Chain</option>
+                        <option value="Afghan Transit">Afghan Transit</option>
+                        <option value="Inspection">Inspection</option>
+                        <option value="Project Handling">Project Handling</option>
+                        <option value="Car Import">Car Import</option>
+                        <option value="Vessel Chartering">Vessel Chartering</option>
+                        <option value="Freight Forwarding">Freight Forwarding</option>
+                    </select>
+                    <div class="form-row">
+                        <input type="text" name="origin" placeholder="From City" class="form-input">
+                        <input type="text" name="destination" placeholder="To City" class="form-input">
+                    </div>
+                    <textarea name="message" placeholder="Additional Details / Cargo Description" rows="4" class="form-textarea"></textarea>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        Send Inquiry
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                    </button>
+                </form>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- WhatsApp Floating Button -->
 <?php $whatsapp = get_theme_mod('stl_whatsapp', '923184833990'); ?>
 <?php if (!empty($whatsapp)) : ?>
@@ -250,6 +370,20 @@ function stl_get_service_icon($icon) {
         'car' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>',
         'anchor' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><line x1="12" x2="12" y1="22" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></svg>',
         'ship' => '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1 .6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M19.38 20A11.6 11.6 0 0 0 21 14l-9-4-9 4c0 2.9.94 5.34 2.81 7.76"/><path d="M19 13V7a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v6"/><path d="M12 10v4"/><path d="M12 2v3"/></svg>',
+    );
+    
+    return isset($icons[$icon]) ? $icons[$icon] : '';
+}
+
+// Feature icons helper
+function stl_get_feature_icon($icon) {
+    $icons = array(
+        'globe' => '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>',
+        'clock' => '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+        'shield' => '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>',
+        'headphones' => '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>',
+        'trending-up' => '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>',
+        'users' => '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
     );
     
     return isset($icons[$icon]) ? $icons[$icon] : '';
