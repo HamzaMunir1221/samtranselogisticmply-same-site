@@ -26,8 +26,8 @@ export function Footer() {
           <div>
             <Link to="/" className="flex items-center mb-6">
               <div className="relative">
-                <span className="text-2xl font-black text-primary-foreground tracking-tight">STL</span>
-                <Ship className="h-3 w-3 text-primary-foreground absolute -top-1 -right-3" />
+                <span className="text-2xl font-black text-primary tracking-tight">STL</span>
+                <Ship className="h-3 w-3 text-primary absolute -top-1 -right-3" />
               </div>
             </Link>
             <p className="text-muted-foreground mb-6">
