@@ -34,7 +34,7 @@ export function Services() {
             speed={0.15}
             overlay={true}
             overlayOpacity={0.4}
-            className="rounded-2xl h-[500px]"
+            className="rounded-2xl h-[300px] lg:h-[500px]"
           >
             <div className="absolute bottom-8 left-8 right-8 z-20">
               <h3 className="text-2xl font-bold text-foreground mb-2">
