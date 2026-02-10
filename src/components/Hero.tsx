@@ -1,13 +1,17 @@
 import { useState, useEffect, useCallback } from "react";
 import { ArrowRight, Phone, MapPin, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import heroSlide1 from "@/assets/hero-slide-1.jpg";
-import heroSlide2 from "@/assets/hero-slide-2.jpg";
-import heroSlide3 from "@/assets/hero-slide-3.jpg";
+import heroSlide1 from "@/assets/hero-slide-1.webp";
+import heroSlide2 from "@/assets/hero-slide-2.webp";
+import heroSlide3 from "@/assets/hero-slide-3.webp";
+import heroSlide1Fallback from "@/assets/hero-slide-1.jpg";
+import heroSlide2Fallback from "@/assets/hero-slide-2.jpg";
+import heroSlide3Fallback from "@/assets/hero-slide-3.jpg";
 
 const slides = [
   {
     image: heroSlide1,
+    fallback: heroSlide1Fallback,
     subtitle: "International Freight Solutions",
     title: "Your Trusted Partner in",
     highlight: "Global Logistics",
@@ -15,6 +19,7 @@ const slides = [
   },
   {
     image: heroSlide2,
+    fallback: heroSlide2Fallback,
     subtitle: "Road & Rail Transport",
     title: "Delivering Excellence",
     highlight: "Every Mile",
@@ -22,6 +27,7 @@ const slides = [
   },
   {
     image: heroSlide3,
+    fallback: heroSlide3Fallback,
     subtitle: "Warehousing & Distribution",
     title: "Strategic Storage",
     highlight: "Solutions",
@@ -55,13 +61,16 @@ export function Hero() {
             index === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105"
           }`}
         >
-          <img
-            src={slide.image}
-            alt={slide.title}
-            className="w-full h-full object-cover"
-            loading={index === 0 ? "eager" : "lazy"}
-            fetchPriority={index === 0 ? "high" : "auto"}
-          />
+          <picture>
+            <source srcSet={slide.image} type="image/webp" />
+            <img
+              src={slide.fallback}
+              alt={slide.title}
+              className="w-full h-full object-cover"
+              loading={index === 0 ? "eager" : "lazy"}
+              fetchPriority={index === 0 ? "high" : "auto"}
+            />
+          </picture>
           {/* Professional gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/70 to-background/40" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
