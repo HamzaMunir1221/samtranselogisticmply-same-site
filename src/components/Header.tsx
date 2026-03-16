@@ -10,6 +10,7 @@ const navLinks = [
   { name: "Services", href: "#services" },
   { name: "Why Choose Us", href: "#why-us" },
   { name: "Container Tracking", href: "#tracking" },
+  { name: "Blog", href: "/blog", isRoute: true },
   { name: "Contact", href: "#contact" },
 ];
 
