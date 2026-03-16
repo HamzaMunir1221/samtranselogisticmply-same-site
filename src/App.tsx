@@ -25,6 +25,8 @@ const Inspection = lazy(() => import("./pages/services/Inspection"));
 const ProjectHandling = lazy(() => import("./pages/services/ProjectHandling"));
 const CarImport = lazy(() => import("./pages/services/CarImport"));
 const VesselChartering = lazy(() => import("./pages/services/VesselChartering"));
+const Blog = lazy(() => import("./pages/Blog"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
 
 const queryClient = new QueryClient();
 
