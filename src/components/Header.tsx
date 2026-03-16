@@ -10,6 +10,7 @@ const navLinks = [
   { name: "Services", href: "#services" },
   { name: "Why Choose Us", href: "#why-us" },
   { name: "Container Tracking", href: "#tracking" },
+  { name: "Blog", href: "/blog", isRoute: true },
   { name: "Contact", href: "#contact" },
 ];
 
@@ -45,15 +46,25 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {link.name}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              'isRoute' in link && link.isRoute ? (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {link.name}
+                </a>
+              )
+            )}
           </nav>
 
           {/* Desktop Actions */}
@@ -95,17 +106,29 @@ export function Header() {
 
                   {/* Navigation links */}
                   <nav className="flex-1 overflow-y-auto py-4">
-                    {navLinks.map((link, index) => (
-                      <a
-                        key={link.name}
-                        href={link.href}
-                        onClick={() => setIsOpen(false)}
-                        className="flex items-center px-6 py-4 text-base font-medium text-foreground hover:text-primary hover:bg-muted/50 transition-colors border-b border-border/30 last:border-b-0"
-                        style={{ animationDelay: `${index * 50}ms` }}
-                      >
-                        {link.name}
-                      </a>
-                    ))}
+                    {navLinks.map((link, index) =>
+                      'isRoute' in link && link.isRoute ? (
+                        <Link
+                          key={link.name}
+                          to={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center px-6 py-4 text-base font-medium text-foreground hover:text-primary hover:bg-muted/50 transition-colors border-b border-border/30 last:border-b-0"
+                          style={{ animationDelay: `${index * 50}ms` }}
+                        >
+                          {link.name}
+                        </Link>
+                      ) : (
+                        <a
+                          key={link.name}
+                          href={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center px-6 py-4 text-base font-medium text-foreground hover:text-primary hover:bg-muted/50 transition-colors border-b border-border/30 last:border-b-0"
+                          style={{ animationDelay: `${index * 50}ms` }}
+                        >
+                          {link.name}
+                        </a>
+                      )
+                    )}
                   </nav>
 
                   {/* Mobile menu footer */}
