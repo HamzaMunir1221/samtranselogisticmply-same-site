@@ -106,17 +106,29 @@ export function Header() {
 
                   {/* Navigation links */}
                   <nav className="flex-1 overflow-y-auto py-4">
-                    {navLinks.map((link, index) => (
-                      <a
-                        key={link.name}
-                        href={link.href}
-                        onClick={() => setIsOpen(false)}
-                        className="flex items-center px-6 py-4 text-base font-medium text-foreground hover:text-primary hover:bg-muted/50 transition-colors border-b border-border/30 last:border-b-0"
-                        style={{ animationDelay: `${index * 50}ms` }}
-                      >
-                        {link.name}
-                      </a>
-                    ))}
+                    {navLinks.map((link, index) =>
+                      'isRoute' in link && link.isRoute ? (
+                        <Link
+                          key={link.name}
+                          to={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center px-6 py-4 text-base font-medium text-foreground hover:text-primary hover:bg-muted/50 transition-colors border-b border-border/30 last:border-b-0"
+                          style={{ animationDelay: `${index * 50}ms` }}
+                        >
+                          {link.name}
+                        </Link>
+                      ) : (
+                        <a
+                          key={link.name}
+                          href={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className="flex items-center px-6 py-4 text-base font-medium text-foreground hover:text-primary hover:bg-muted/50 transition-colors border-b border-border/30 last:border-b-0"
+                          style={{ animationDelay: `${index * 50}ms` }}
+                        >
+                          {link.name}
+                        </a>
+                      )
+                    )}
                   </nav>
 
                   {/* Mobile menu footer */}
